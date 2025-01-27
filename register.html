@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Registrarse</title>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img class="logo" src="https://i.pinimg.com/originals/f7/78/0f/f7780f5a82fcf20ef4d5f3610b7aea3c.png" alt="logo">
+        </div>
+        <div class="title-box flashing-title">
+            <h1>Registrarse</h1>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">MENÚ</button>
+            <div class="dropdown-content">
+                <a href="attractive_page.html">Inicio</a>
+                <a href="productos.html">Productos</a>
+                <a href="contact.html">Contacto</a>
+                <a href="login.html">Iniciar Sesión</a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <form class="registration-form">
+            <ul>
+                <li>
+                    <label for="new-username">Usuario:</label>
+                    <input type="text" id="new-username" name="new-username" placeholder="Ingresa tu nombre de usuario" required>
+                </li>
+                <li>
+                    <label for="new-password">Contraseña:</label>
+                    <input type="password" id="new-password" name="new-password" placeholder="Crea una contraseña" required>
+                </li>
+                <li>
+                    <label for="new-email">Email:</label>
+                    <input type="email" id="new-email" name="new-email" placeholder="Ingresa tu correo electrónico" required>
+                </li>
+                <li>
+                    <label for="new-phone">Teléfono:</label>
+                    <input type="tel" id="new-phone" name="new-phone" placeholder="Ingresa tu número de teléfono" required>
+                </li>
+                <li>
+                    <button type="submit">Registrarse</button>
+                </li>
+            </ul>
+        </form>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

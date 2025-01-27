@@ -1,0 +1,110 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #AFEEEE; /* Light turquoise background color */
+}
+
+header {
+    background-color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
+
+.logo-container {
+    float: left; /* Position logo to the left */
+    margin-right: 20px; /* Space between logo and title */
+    margin-top: -40px; /* Adjust logo position slightly higher */
+}
+
+.title-box {
+    display: inline-block; /* Keep title inline with logo */
+}
+
+.flashing-title {
+    animation: flash 1s infinite; /* Flashing effect */
+    background-color: black; /* Background color for title */
+    color: white; /* Text color */
+    padding: 10px; /* Padding around title */
+    border-radius: 5px; /* Rounded corners */
+}
+
+@keyframes flash {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.dropdown {
+    display: inline-block; /* Allow dropdown to be centered */
+    margin-top: 10px; /* Add some spacing from the top */
+    float: right; /* Align the dropdown to the right */
+    margin-right: 75px; /* Move the dropdown further to the left */
+}
+
+.dropbtn {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition for color change */
+}
+
+.dropbtn:hover {
+    background-color: #555; /* Change to a darker shade on hover */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px; /* Increased width for better visibility */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Removed the hover rule for dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    max-width: 180px; /* Set a maximum width for the menu items */
+    white-space: normal; /* Allow text to wrap */
+    text-align: center; /* Center the text within the menu item */
+}
+
+main {
+    padding: 20px;
+    text-align: center; /* Center the content in main */
+}
+
+h2, p {
+    text-align: center; /* Center the h2 and p elements */
+}
+
+.login-form, .registration-form {
+    text-align: left; /* Align the forms to the left */
+}
+
+img {
+    max-width: 100%; /* Ensure images are responsive */
+    height: auto;
+}
+
+/* New rule for logo */
+.logo {
+    max-width: 150px; /* Set the logo size */
+}
+
+/* Specific rule for catering image */
+.responsive-image {
+    width: 75%; /* Make the catering image 25% smaller */
+}
+
+/* Additional spacing for form fields */
+input, button {
+    margin-bottom: 15px; /* Add spacing between form fields */
+}
