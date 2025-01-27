@@ -19,3 +19,26 @@ window.addEventListener('click', function(event) {
         }
     }
 });
+
+// Function to handle file uploads
+function uploadFile() {
+    const fileInput = document.getElementById('fileInput');
+    const formData = new FormData();
+    formData.append('file', fileInput.files[0]);
+
+    fetch('http://localhost:8080', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data); // Show success or error message
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error uploading file.');
+    });
+}
+
+// Event listener for file upload button
+document.getElementById('uploadButton').addEventListener('click', uploadFile);

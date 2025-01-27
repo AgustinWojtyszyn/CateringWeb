@@ -1,10 +1,32 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const multer = require('multer');
 
 const PORT = 8080;
 
+// Set up multer for file uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/'); // Directory to save uploaded files
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname); // Use original file name
+    }
+});
+const upload = multer({ storage: storage });
+
 const requestHandler = (req, res) => {
+    if (req.method === 'POST') {
+        upload.single('file')(req, res, (err) => {
+            if (err) {
+                return res.status(500).send('Error uploading file.');
+            }
+            res.status(200).send('File uploaded successfully.');
+        });
+        return;
+    }
+
     let filePath = '.' + req.url;
     if (filePath === './') {
         filePath = './attractive_page.html'; // Default file to serve
