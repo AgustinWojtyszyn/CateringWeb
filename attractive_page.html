@@ -3,8 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
     <title>Página Atractiva</title>
+    <style>
+        :root {
+            --primary-color: #ff6b6b;
+            --secondary-color: #4ecdc4;
+            --accent-color: #ffe66d;
+            --dark-color: #292f36;
+            --light-color: #f7fff7;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 100;
+        }
+
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
+        }
+
+        .logo-container:hover {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .title-box {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .flashing-title {
+            animation: flash 3s infinite;
+        }
+
+        h1 {
+            color: var(--dark-color);
+            font-size: 1.8rem;
+            text-align: center;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+            padding: 12px 24px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all var(--transition-speed) ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropbtn:hover {
+            background-color: var(--dark-color);
+            color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: var(--dark-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        main {
+            padding: 40px 5%;
+            text-align: center;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+        }
+
+        p {
+            color: var(--dark-color);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .responsive-image {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: all var(--transition-speed) ease;
+            border: 5px solid white;
+        }
+
+        .responsive-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes flash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; box-shadow: 0 0 15px var(--accent-color); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .logo-container {
+                margin-bottom: 20px;
+            }
+
+            .title-box {
+                margin-bottom: 20px;
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .dropdown {
+                width: 100%;
+                text-align: center;
+            }
+
+            .dropbtn {
+                width: 100%;
+            }
+
+            .dropdown-content {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -33,6 +266,48 @@
             <img class="responsive-image" src="https://www.sunjaya.com.my/wp-content/uploads/2019/11/Wedding-Catering-Fusion.jpg" alt="catering">
         </div>
     </main>
-    <script src="script.js"></script>
+    <script>
+        // Efecto de scroll suave para todos los enlaces
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Efecto de carga de la página
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 1s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Efecto de hover mejorado para las tarjetas
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => {
+            section.addEventListener('mouseenter', () => {
+                section.style.transform = 'translateY(-5px)';
+                section.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.1)';
+            });
+            section.addEventListener('mouseleave', () => {
+                section.style.transform = '';
+                section.style.boxShadow = '';
+            });
+        });
+
+        // Animación del logo al cargar
+        const logo = document.querySelector('.logo');
+        setTimeout(() => {
+            logo.style.transform = 'rotate(360deg)';
+            logo.style.transition = 'transform 1s ease';
+        }, 500);
+        setTimeout(() => {
+            logo.style.transform = '';
+        }, 1500);
+    </script>
 </body>
 </html>
