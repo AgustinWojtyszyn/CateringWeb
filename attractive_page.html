@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Atractiva</title>
+    <title>Catering Pro™ - Experiencia Gastronómica</title>
     <style>
         :root {
             --primary-color: #ff6b6b;
@@ -12,6 +12,7 @@
             --dark-color: #292f36;
             --light-color: #f7fff7;
             --transition-speed: 0.3s;
+            --header-height: 100px;
         }
 
         * {
@@ -26,6 +27,9 @@
             color: var(--dark-color);
             line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         header {
@@ -37,12 +41,15 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             position: relative;
             z-index: 100;
+            height: var(--header-height);
+            will-change: transform;
         }
 
         .logo-container {
             width: 80px;
             height: 80px;
             transition: transform var(--transition-speed) ease;
+            will-change: transform;
         }
 
         .logo {
@@ -50,6 +57,7 @@
             height: 100%;
             object-fit: contain;
             filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
+            will-change: transform;
         }
 
         .logo-container:hover {
@@ -61,6 +69,7 @@
             padding: 15px 30px;
             border-radius: 50px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            will-change: box-shadow;
         }
 
         .flashing-title {
@@ -94,6 +103,7 @@
             font-weight: bold;
             transition: all var(--transition-speed) ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            will-change: transform, background-color, color;
         }
 
         .dropbtn:hover {
@@ -113,6 +123,8 @@
             border-radius: 10px;
             z-index: 1;
             overflow: hidden;
+            transform-origin: top right;
+            will-change: transform, opacity;
         }
 
         .dropdown-content a {
@@ -121,6 +133,7 @@
             text-decoration: none;
             display: block;
             transition: all var(--transition-speed) ease;
+            will-change: transform, background-color;
         }
 
         .dropdown-content a:hover {
@@ -137,6 +150,7 @@
         main {
             padding: 40px 5%;
             text-align: center;
+            flex: 1;
         }
 
         .section {
@@ -145,7 +159,8 @@
             background-color: white;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform var(--transition-speed) ease;
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            will-change: transform, box-shadow;
         }
 
         .section:hover {
@@ -177,7 +192,7 @@
             color: var(--dark-color);
             font-size: 1.1rem;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 0 auto 20px;
         }
 
         .responsive-image {
@@ -188,11 +203,34 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             transition: all var(--transition-speed) ease;
             border: 5px solid white;
+            will-change: transform, box-shadow;
         }
 
         .responsive-image:hover {
             transform: scale(1.02);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all var(--transition-speed) ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px 5px;
+            border: none;
+            cursor: pointer;
+            will-change: transform, background-color;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
         @keyframes flash {
@@ -201,14 +239,21 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
                 padding: 20px;
+                height: auto;
             }
 
             .logo-container {
@@ -235,11 +280,63 @@
 
             .dropdown-content {
                 width: 100%;
+                right: auto;
+                left: 0;
+                transform-origin: top center;
             }
+        }
+
+        /* Preloader para mejor experiencia de carga */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--light-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .preloader.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--primary-color);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Efecto de scroll revelador */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
+    <div class="preloader">
+        <div class="loader"></div>
+    </div>
+
     <header>
         <div class="logo-container">
             <img class="logo" src="https://i.pinimg.com/originals/f7/78/0f/f7780f5a82fcf20ef4d5f3610b7aea3c.png" alt="logo">
@@ -248,8 +345,8 @@
             <h1>Bienvenido a Catering Pro™</h1>
         </div>
         <div class="dropdown">
-            <button class="dropbtn">MENÚ</button>
-            <div class="dropdown-content">
+            <button class="dropbtn" id="menuBtn">MENÚ</button>
+            <div class="dropdown-content" id="dropdownMenu">
                 <a href="productos.html">Productos</a>
                 <a href="contact.html">Contacto</a>
                 <a href="login.html">Iniciar Sesión</a>
@@ -258,56 +355,173 @@
         </div>
     </header>
     <main>
-        <section class="section">
+        <section class="section reveal">
             <h2>Una nueva experiencia gastronómica</h2>
-            <p>Aquí podrá encontrar todos los productos que nuestro servicio brinda.</p>
+            <p>Descubre nuestros exclusivos servicios de catering diseñados para deleitar tus sentidos y hacer de tu evento una ocasión inolvidable.</p>
+            <button class="btn" id="exploreBtn">Explorar Servicios</button>
         </section>
-        <div>
-            <img class="responsive-image" src="https://www.sunjaya.com.my/wp-content/uploads/2019/11/Wedding-Catering-Fusion.jpg" alt="catering">
+        <div class="reveal">
+            <img class="responsive-image" src="https://www.sunjaya.com.my/wp-content/uploads/2019/11/Wedding-Catering-Fusion.jpg" alt="Servicio de catering elegante">
         </div>
+        <section class="section reveal">
+            <h2>Nuestros Servicios</h2>
+            <p>Ofrecemos soluciones culinarias personalizadas para bodas, eventos corporativos, fiestas privadas y ocasiones especiales.</p>
+            <button class="btn" id="servicesBtn">Ver Menús</button>
+        </section>
     </main>
+
+    <audio id="hoverSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="clickSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-positive-interface-beep-221.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="menuOpenSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-modern-click-box-check-1120.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="pageTransitionSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
-        // Efecto de scroll suave para todos los enlaces
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+        // Optimización: Cargar el DOM completamente antes de ejecutar scripts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Preloader
+            const preloader = document.querySelector('.preloader');
+            setTimeout(() => {
+                preloader.classList.add('fade-out');
+                playSound('pageTransitionSound');
+            }, 1500);
+
+            // Efecto de scroll suave para todos los enlaces
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    playSound('clickSound');
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Efectos de hover con sonido
+            const interactiveElements = document.querySelectorAll(
+                '.dropbtn, .dropdown-content a, .btn, .section, .responsive-image, .logo-container'
+            );
+            
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    playSound('hoverSound', 0.3);
+                    
+                    // Efecto de pulso para botones
+                    if (el.classList.contains('btn') || el.classList.contains('dropbtn')) {
+                        el.style.animation = 'pulse 0.5s ease';
+                        setTimeout(() => {
+                            el.style.animation = '';
+                        }, 500);
+                    }
+                });
+                
+                el.addEventListener('click', () => {
+                    if (!el.href) playSound('clickSound');
+                });
+            });
+
+            // Menú desplegable con sonido
+            const menuBtn = document.getElementById('menuBtn');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            
+            menuBtn.addEventListener('click', function() {
+                const isOpen = dropdownMenu.style.display === 'block';
+                dropdownMenu.style.display = isOpen ? 'none' : 'block';
+                playSound(isOpen ? 'clickSound' : 'menuOpenSound');
+            });
+
+            // Botones principales
+            document.getElementById('exploreBtn').addEventListener('click', function() {
+                playSound('clickSound');
+                // Simular navegación (en un caso real sería un enlace)
+                this.textContent = '¡Excelente elección!';
+                setTimeout(() => {
+                    this.textContent = 'Explorar Servicios';
+                }, 2000);
+            });
+
+            document.getElementById('servicesBtn').addEventListener('click', function() {
+                playSound('clickSound');
+                // Simular navegación (en un caso real sería un enlace)
+                this.textContent = 'Cargando menús...';
+                setTimeout(() => {
+                    this.textContent = 'Ver Menús';
+                }, 2000);
+            });
+
+            // Animación del logo
+            const logo = document.querySelector('.logo');
+            setTimeout(() => {
+                logo.style.transform = 'rotate(360deg)';
+                logo.style.transition = 'transform 1s ease';
+                playSound('hoverSound', 0.2);
+            }, 500);
+            
+            setTimeout(() => {
+                logo.style.transform = '';
+            }, 1500);
+
+            // Efecto de scroll revelador
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            function checkReveal() {
+                revealElements.forEach(el => {
+                    const elementTop = el.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementTop < windowHeight - 100) {
+                        el.classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', checkReveal);
+            checkReveal(); // Comprobar al cargar
+
+            // Optimización: Cargar imágenes de forma diferida
+            if ('loading' in HTMLImageElement.prototype) {
+                const images = document.querySelectorAll('img[loading="lazy"]');
+                images.forEach(img => {
+                    img.loading = 'lazy';
+                });
+            }
+
+            // Reproducir sonidos
+            function playSound(soundId, volume = 0.5) {
+                const sound = document.getElementById(soundId);
+                if (sound) {
+                    sound.volume = volume;
+                    sound.currentTime = 0;
+                    sound.play().catch(e => console.log("La reproducción automática fue prevenida:", e));
+                }
+            }
+
+            // Efecto de confeti al hacer clic en botones principales
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    if (typeof confetti === 'function') {
+                        confetti({
+                            particleCount: 100,
+                            spread: 70,
+                            origin: { y: 0.6 }
+                        });
+                    }
                 });
             });
         });
 
-        // Efecto de carga de la página
-        document.addEventListener('DOMContentLoaded', () => {
-            document.body.style.opacity = '0';
-            setTimeout(() => {
-                document.body.style.transition = 'opacity 1s ease';
-                document.body.style.opacity = '1';
-            }, 100);
-        });
-
-        // Efecto de hover mejorado para las tarjetas
-        const sections = document.querySelectorAll('.section');
-        sections.forEach(section => {
-            section.addEventListener('mouseenter', () => {
-                section.style.transform = 'translateY(-5px)';
-                section.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.1)';
-            });
-            section.addEventListener('mouseleave', () => {
-                section.style.transform = '';
-                section.style.boxShadow = '';
-            });
-        });
-
-        // Animación del logo al cargar
-        const logo = document.querySelector('.logo');
-        setTimeout(() => {
-            logo.style.transform = 'rotate(360deg)';
-            logo.style.transition = 'transform 1s ease';
-        }, 500);
-        setTimeout(() => {
-            logo.style.transform = '';
-        }, 1500);
-    </script>
-</body>
-</html>
+        // Optimización: Cargar el script de confeti solo si es necesario
+        function loadConfetti() {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js';
+            script.async = true;
+            document.body.appendChild(script);
+        }
