@@ -3,20 +3,350 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Página de inicio de sesión segura">
     <link rel="stylesheet" href="styles.css">
-    <title>Iniciar Sesión</title>
+    <title>Iniciar Sesión - Plataforma</title>
+    <style>
+        /* Estilos básicos para el ejemplo */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo-container {
+            width: 60px;
+            height: 60px;
+        }
+        
+        .logo {
+            width: 100%;
+            height: auto;
+        }
+        
+        .title-box {
+            text-align: center;
+            flex-grow: 1;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropbtn {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .dropbtn:hover {
+            background-color: #2980b9;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .dropdown-content a {
+            color: var(--dark-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        main {
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .login-form {
+            margin-top: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="email"]:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+        
+        .remember-me input {
+            margin-right: 0.5rem;
+        }
+        
+        .forgot-password {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        
+        button[type="submit"] {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+        
+        .social-login {
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .social-login p {
+            position: relative;
+            margin-bottom: 1.5rem;
+            color: #777;
+        }
+        
+        .social-login p::before,
+        .social-login p::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 1px;
+            background-color: #ddd;
+        }
+        
+        .social-login p::before {
+            left: 0;
+        }
+        
+        .social-login p::after {
+            right: 0;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+        }
+        
+        .facebook {
+            background-color: #3b5998;
+        }
+        
+        .google {
+            background-color: #db4437;
+        }
+        
+        .twitter {
+            background-color: #1da1f2;
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #777;
+        }
+        
+        .register-link a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        
+        .input-error {
+            border-color: var(--accent-color) !important;
+        }
+        
+        .success-message {
+            color: var(--success-color);
+            background-color: rgba(39, 174, 96, 0.1);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+        
+        .flashing-title {
+            animation: flash 2s infinite;
+        }
+        
+        @keyframes flash {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .dropdown {
+                margin-top: 1rem;
+            }
+            
+            main {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="logo-container">
-            <img class="logo" src="https://i.pinimg.com/originals/f7/78/0f/f7780f5a82fcf20ef4d5f3610b7aea3c.png" alt="logo">
+            <img class="logo" src="https://i.pinimg.com/originals/f7/78/0f/f7780f5a82fcf20ef4d5f3610b7aea3c.png" alt="Logo de la empresa" width="60" height="60">
         </div>
         <div class="title-box flashing-title">
             <h1>Iniciar Sesión</h1>
         </div>
         <div class="dropdown">
-            <button class="dropbtn">MENÚ</button>
-            <div class="dropdown-content">
+            <button class="dropbtn" aria-expanded="false" aria-controls="dropdown-menu">MENÚ</button>
+            <div class="dropdown-content" id="dropdown-menu">
                 <a href="attractive_page.html">Inicio</a>
                 <a href="productos.html">Productos</a>
                 <a href="contact.html">Contacto</a>
@@ -25,22 +355,148 @@
         </div>
     </header>
     <main>
-        <form class="login-form">
-            <ul>
-                <li>
-                    <label for="username">Usuario:</label>
-                    <input type="text" id="username" name="username" placeholder="Ingresa tu nombre de usuario" required>
-                </li>
-                <li>
-                    <label for="password">Contraseña:</label>
-                    <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
-                </li>
-                <li>
-                    <button type="submit">Iniciar Sesión</button>
-                </li>
-            </ul>
+        <div class="success-message" id="success-message">
+            ¡Registro exitoso! Por favor inicia sesión con tus credenciales.
+        </div>
+        
+        <form class="login-form" id="loginForm" novalidate>
+            <div class="form-group">
+                <label for="username">Usuario o correo electrónico:</label>
+                <input type="text" id="username" name="username" placeholder="Ingresa tu nombre de usuario o email" required
+                       aria-describedby="username-error">
+                <div class="error-message" id="username-error">Por favor ingresa un nombre de usuario o email válido</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required
+                           minlength="8" aria-describedby="password-error">
+                    <button type="button" class="toggle-password" aria-label="Mostrar contraseña">👁️</button>
+                </div>
+                <div class="error-message" id="password-error">La contraseña debe tener al menos 8 caracteres</div>
+            </div>
+            
+            <div class="remember-forgot">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Recordarme</label>
+                </div>
+                <a href="forgot_password.html" class="forgot-password">¿Olvidaste tu contraseña?</a>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit" id="submit-btn">Iniciar Sesión</button>
+            </div>
+            
+            <div class="social-login">
+                <p>O inicia sesión con</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon facebook" aria-label="Iniciar sesión con Facebook">f</a>
+                    <a href="#" class="social-icon google" aria-label="Iniciar sesión con Google">G</a>
+                    <a href="#" class="social-icon twitter" aria-label="Iniciar sesión con Twitter">t</a>
+                </div>
+            </div>
+            
+            <div class="register-link">
+                ¿No tienes una cuenta? <a href="register.html">Regístrate aquí</a>
+            </div>
         </form>
     </main>
-    <script src="script.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const togglePassword = document.querySelector('.toggle-password');
+            const passwordInput = document.getElementById('password');
+            const usernameInput = document.getElementById('username');
+            const successMessage = document.getElementById('success-message');
+            
+            // Mostrar mensaje de éxito si viene del registro
+            if(window.location.search.includes('registered=true')) {
+                successMessage.style.display = 'block';
+            }
+            
+            // Alternar visibilidad de contraseña
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.textContent = type === 'password' ? '👁️' : '🔒';
+                this.setAttribute('aria-label', type === 'password' ? 'Mostrar contraseña' : 'Ocultar contraseña');
+            });
+            
+            // Validación en tiempo real
+            usernameInput.addEventListener('input', function() {
+                validateField(this, /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$|^[a-zA-Z0-9_]{4,20}$/, 
+                              document.getElementById('username-error'));
+            });
+            
+            passwordInput.addEventListener('input', function() {
+                validateField(this, /^.{8,}$/, document.getElementById('password-error'));
+            });
+            
+            // Validación al enviar el formulario
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                let isValid = true;
+                
+                // Validar username/email
+                const usernameValid = validateField(usernameInput, 
+                    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$|^[a-zA-Z0-9_]{4,20}$/, 
+                    document.getElementById('username-error'));
+                
+                // Validar contraseña
+                const passwordValid = validateField(passwordInput, 
+                    /^.{8,}$/, 
+                    document.getElementById('password-error'));
+                
+                if(usernameValid && passwordValid) {
+                    // Simular envío al servidor
+                    document.getElementById('submit-btn').textContent = 'Iniciando sesión...';
+                    document.getElementById('submit-btn').disabled = true;
+                    
+                    // Aquí iría la llamada AJAX real al servidor
+                    setTimeout(function() {
+                        alert('Inicio de sesión exitoso (simulado). Redirigiendo...');
+                        window.location.href = 'dashboard.html';
+                    }, 1500);
+                }
+            });
+            
+            function validateField(field, regex, errorElement) {
+                if(regex.test(field.value)) {
+                    field.classList.remove('input-error');
+                    errorElement.style.display = 'none';
+                    return true;
+                } else {
+                    field.classList.add('input-error');
+                    errorElement.style.display = 'block';
+                    return false;
+                }
+            }
+            
+            // Accesibilidad del menú desplegable
+            const dropbtn = document.querySelector('.dropbtn');
+            const dropdownContent = document.querySelector('.dropdown-content');
+            
+            dropbtn.addEventListener('keydown', function(e) {
+                if(e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                    this.setAttribute('aria-expanded', !isExpanded);
+                    dropdownContent.style.display = isExpanded ? 'none' : 'block';
+                }
+            });
+            
+            // Cerrar menú al hacer clic fuera
+            document.addEventListener('click', function(e) {
+                if(!e.target.matches('.dropbtn')) {
+                    dropbtn.setAttribute('aria-expanded', 'false');
+                    dropdownContent.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
